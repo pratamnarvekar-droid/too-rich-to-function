@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TooRichToFunction | Luxury Simulator</title>
+    <!-- Use root-relative paths for Vercel -->
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
 </head>
@@ -23,23 +24,25 @@
         </main>
     </div>
 
+    <!-- type="module" is required for 'import' to work -->
     <script type="module">
-        // Import using curly braces to match the Named Export in game.js
-        import { Game } from './js/game.js';
+        import { Game } from '/js/game.js';
 
-        console.log("Game Module Loaded");
+        console.log("Game Module System Online");
 
+        // Start Button Logic
         const startBtn = document.getElementById('start-btn');
         if (startBtn) {
             startBtn.onclick = () => {
-                console.log("Start button clicked");
+                console.log("Initializing Luxury Simulation...");
                 Game.init();
             };
         }
 
-        // Bridge to allow HTML buttons to call Game logic
+        // IMPORTANT: Global Bridge
+        // This allows buttons created inside UI.js to trigger the Game logic
         window.makeChoice = (index) => {
-            console.log("Choice made:", index);
+            console.log("Selected Choice:", index);
             Game.handleChoice(index);
         };
     </script>

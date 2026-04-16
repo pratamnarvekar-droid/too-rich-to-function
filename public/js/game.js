@@ -1,7 +1,7 @@
 import { API } from './api.js';
 import { UI } from './ui.js';
 
-// We use 'export const' to ensure index.html can find it exactly
+// Use 'export const' so the browser knows exactly what is being shared
 export const Game = {
     state: {
         score: 0,
@@ -14,9 +14,10 @@ export const Game = {
     async init() {
         console.log("Game.init() started");
         try {
+            // Fetch scenarios from our backend
             this.state.scenarios = await API.getScenarios();
             
-            // Reset state for a fresh game
+            // Reset game state
             this.state.score = 0;
             this.state.usedIndexes.clear();
             this.state.currentLevel = 1;
@@ -43,32 +44,34 @@ export const Game = {
         const addedScore = scenario.luxuryScore[choiceIndex];
         const outcome = scenario.outcomes[choiceIndex];
 
+        // Update Score
         this.state.score += addedScore;
         
-        // Update the Level based on total score
+        // Progression Logic: Unlock level 2/3 as they get richer
         if (this.state.score > 2000 && this.state.score < 15000) this.state.currentLevel = 2;
         if (this.state.score >= 15000) this.state.currentLevel = 3;
 
-        // Update UI Header
+        // Update the top UI bar
         const scoreDisplay = document.getElementById('score');
         const rankDisplay = document.getElementById('rank');
         if (scoreDisplay) scoreDisplay.innerText = this.state.score.toLocaleString();
         if (rankDisplay) rankDisplay.innerText = this.getRank(this.state.score);
 
+        // Show funny outcome feedback
         UI.showFeedback(outcome, addedScore);
         
-        // Show next question or end game after delay
+        // Brief pause before next question
         setTimeout(() => {
             if (this.state.usedIndexes.size >= this.state.scenarios.length) {
                 this.finishGame();
             } else {
                 this.nextQuestion();
             }
-        }, 2000);
+        }, 2200);
     },
 
     nextQuestion() {
-        // Find unused scenarios that match current unlocked level
+        // Pool only scenarios from unlocked levels that haven't been played
         const available = this.state.scenarios.filter((s, index) => 
             s.level <= this.state.currentLevel && !this.state.usedIndexes.has(index)
         );
@@ -78,11 +81,11 @@ export const Game = {
             return;
         }
 
-        // Pick a random one from available pool
+        // Pick a random scenario
         const randomScenario = available[Math.floor(Math.random() * available.length)];
         this.state.currentScenario = randomScenario;
         
-        // Track that we used this specific scenario ID
+        // Find and mark the index as used
         const originalIndex = this.state.scenarios.findIndex(s => s.id === randomScenario.id);
         this.state.usedIndexes.add(originalIndex);
 
@@ -90,8 +93,11 @@ export const Game = {
     },
 
     finishGame() {
-        console.log("Game finished. Final Score:", this.state.score);
-        UI.showResults(this.state.score, this.getRank(this.state.score));
-        API.submitScore('The Elite', this.state.score, this.getRank(this.state.score));
+        console.log("Ending game with score:", this.state.score);
+        const finalRank = this.getRank(this.state.score);
+        UI.showResults(this.state.score, finalRank);
+        
+        // Optional: Save to leaderboard
+        API.submitScore('The Elite', this.state.score, finalRank);
     }
 };
