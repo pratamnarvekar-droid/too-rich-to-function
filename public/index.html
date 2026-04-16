@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TooRichToFunction | Luxury Simulator</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -15,30 +16,30 @@
 
         <main id="game-container">
             <div class="card">
-                <h1 style="font-family: 'Playfair Display', serif; color: #d4af37;">TooRichToFunction</h1>
-                <p>Welcome to the simulation of the 0.01%.</p>
+                <h1 style="font-family: 'Playfair Display', serif; color: #d4af37; font-size: 2.5rem;">TooRichToFunction</h1>
+                <p>A simulation for those who find reality too affordable.</p>
                 <button id="start-btn">Enter The High Life</button>
             </div>
         </main>
     </div>
 
     <script type="module">
-        // Use absolute paths to prevent Vercel errors
-        import Game from '/js/game.js';
+        // Import using curly braces to match the Named Export in game.js
+        import { Game } from './js/game.js';
 
-        console.log("Main Module Loaded");
+        console.log("Game Module Loaded");
 
         const startBtn = document.getElementById('start-btn');
         if (startBtn) {
             startBtn.onclick = () => {
-                console.log("Start Button Clicked");
+                console.log("Start button clicked");
                 Game.init();
             };
         }
 
-        // Global bridge for choice buttons
+        // Bridge to allow HTML buttons to call Game logic
         window.makeChoice = (index) => {
-            console.log("Choice Clicked:", index);
+            console.log("Choice made:", index);
             Game.handleChoice(index);
         };
     </script>
