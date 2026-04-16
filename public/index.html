@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TooRichToFunction | Luxury Simulator</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="app">
@@ -23,16 +23,22 @@
     </div>
 
     <script type="module">
-        import Game from './js/game.js';
+        // Use absolute paths to prevent Vercel errors
+        import Game from '/js/game.js';
 
-        // 1. Start the game when the button is clicked
+        console.log("Main Module Loaded");
+
         const startBtn = document.getElementById('start-btn');
         if (startBtn) {
-            startBtn.onclick = () => Game.init();
+            startBtn.onclick = () => {
+                console.log("Start Button Clicked");
+                Game.init();
+            };
         }
 
-        // 2. GLOBAL BRIDGE: This makes choice buttons work
+        // Global bridge for choice buttons
         window.makeChoice = (index) => {
+            console.log("Choice Clicked:", index);
             Game.handleChoice(index);
         };
     </script>
