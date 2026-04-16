@@ -9,20 +9,32 @@
 <body>
     <div id="app">
         <header>
-            <div class="score-board">Score: <span id="score">0</span></div>
+            <div class="score-board">Luxury Points: <span id="score">0</span></div>
             <div class="rank-tag" id="rank">Broke Energy</div>
         </header>
 
         <main id="game-container">
-            <!-- Dynamic Content -->
-            <button id="start-btn">Enter The High Life</button>
+            <div class="card">
+                <h1 style="font-family: 'Playfair Display', serif; color: #d4af37;">TooRichToFunction</h1>
+                <p>Welcome to the simulation of the 0.01%.</p>
+                <button id="start-btn">Enter The High Life</button>
+            </div>
         </main>
     </div>
 
     <script type="module">
         import Game from './js/game.js';
-        window.makeChoice = (i) => Game.handleChoice(i);
-        document.getElementById('start-btn').onclick = () => Game.init();
+
+        // 1. Start the game when the button is clicked
+        const startBtn = document.getElementById('start-btn');
+        if (startBtn) {
+            startBtn.onclick = () => Game.init();
+        }
+
+        // 2. GLOBAL BRIDGE: This makes choice buttons work
+        window.makeChoice = (index) => {
+            Game.handleChoice(index);
+        };
     </script>
 </body>
 </html>

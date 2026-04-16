@@ -1,18 +1,17 @@
 export const UI = {
     init() {
-        // Clear the screen for the first question
-        document.getElementById('game-container').innerHTML = '<p>Loading your inheritance...</p>';
+        document.getElementById('game-container').innerHTML = '<p style="color: #d4af37;">Consulting with your bankers...</p>';
     },
 
     renderScenario(data) {
         const container = document.getElementById('game-container');
         container.innerHTML = `
             <div class="card fade-in">
-                <p style="color: #888; font-size: 0.8rem;">SCENARIO LEVEL ${data.level}</p>
-                <h2 style="margin-bottom: 20px;">${data.problem}</h2>
+                <p style="color: #d4af37; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;">Luxury Crisis Level ${data.level}</p>
+                <h2>${data.problem}</h2>
                 <div class="choices">
                     ${data.choices.map((c, i) => `
-                        <button onclick="window.makeChoice(${i})">${c}</button>
+                        <button onclick="makeChoice(${i})">${c}</button>
                     `).join('')}
                 </div>
             </div>
@@ -22,25 +21,22 @@ export const UI = {
     showFeedback(message, points) {
         const container = document.getElementById('game-container');
         container.innerHTML = `
-            <div class="card">
-                <h1 style="font-size: 3rem;">${points > 0 ? '💰' : '📉'}</h1>
-                <p>${message}</p>
-                <h2 style="color: #fff">+${points} Luxury Points</h2>
+            <div class="card fade-in">
+                <h1 style="font-size: 3rem;">${points > 1000 ? '💎' : '💰'}</h1>
+                <p style="font-style: italic; font-size: 1.2rem; margin-bottom: 20px;">"${message}"</p>
+                <h2 style="color: #d4af37;">+ ${points.toLocaleString()} Points</h2>
             </div>
         `;
-        // Update Score/Rank in header
-        document.getElementById('score').innerText = window.currentScore;
     },
 
     showResults(score, rank) {
         const container = document.getElementById('game-container');
         container.innerHTML = `
-            <div class="card">
-                <h1>Game Over</h1>
-                <p>Your Final Status:</p>
-                <h2 style="font-size: 2rem;">${rank}</h2>
-                <p>Total Score: ${score}</p>
-                <button onclick="location.reload()">Re-buy your life</button>
+            <div class="card fade-in">
+                <p style="text-transform: uppercase; color: #d4af37;">Final Inheritance Status</p>
+                <h1 style="font-size: 2.5rem; margin: 10px 0;">${rank}</h1>
+                <p>Total Luxury Score: <strong>${score.toLocaleString()}</strong></p>
+                <button onclick="location.reload()" style="margin-top: 20px; border-color: #d4af37;">Re-invest in your lifestyle</button>
             </div>
         `;
     }
