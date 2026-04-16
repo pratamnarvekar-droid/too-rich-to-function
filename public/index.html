@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TooRichToFunction | Luxury Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="score-board">Score: <span id="score">0</span></div>
+            <div class="rank-tag" id="rank">Broke Energy</div>
+        </header>
+
+        <main id="game-container">
+            <!-- Dynamic Content -->
+            <button id="start-btn">Enter The High Life</button>
+        </main>
+    </div>
+
+    <script type="module">
+        import Game from './js/game.js';
+        window.makeChoice = (i) => Game.handleChoice(i);
+        document.getElementById('start-btn').onclick = () => Game.init();
+    </script>
+</body>
+</html>

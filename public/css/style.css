@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;600&display=swap');
+
+:root {
+    --gold: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #b38728 100%);
+    --bg: #050505;
+    --card: rgba(20, 20, 20, 0.9);
+    --border: rgba(212, 175, 55, 0.4);
+}
+
+body {
+    background-color: var(--bg);
+    color: #f0f0f0;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+}
+
+#app {
+    width: 90%;
+    max-width: 550px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 40px;
+}
+
+.score-board {
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.rank-tag {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    background: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text; /* Standard property added to fix VS Code warning */
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 50px 30px;
+    border-radius: 2px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.1);
+    animation: fadeIn 0.8s ease-out;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 35px;
+    font-size: 1.6rem;
+}
+
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    background: transparent;
+    border: 1px solid #333;
+    color: #ddd;
+    padding: 20px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    border-color: #d4af37;
+    color: #fff;
+    background: rgba(212, 175, 55, 0.1);
+    transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#start-btn {
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    font-size: 1.2rem;
+}
